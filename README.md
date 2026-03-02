@@ -1,8 +1,12 @@
 # Active Monitor Workspaces
 
-[![GNOME Shell](https://img.shields.io/badge/GNOME-49%2B-blue)](#requirements)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](#license)
-[![Version](https://img.shields.io/badge/version-1.0.0-brightgreen)](#)
+[![Version](https://img.shields.io/github/v/release/IndyDevGuy/active-monitor-workspaces?display_name=tag)](https://github.com/IndyDevGuy/active-monitor-workspaces/releases)
+![Last Release](https://img.shields.io/github/release-date/IndyDevGuy/active-monitor-workspaces)
+[![GNOME Shell](https://img.shields.io/badge/dynamic/json?color=blue&label=GNOME&query=%24.shell-version[0]&url=https://raw.githubusercontent.com/IndyDevGuy/active-monitor-workspaces/main/metadata.json)](#requirements)
+[![License](https://img.shields.io/github/license/IndyDevGuy/active-monitor-workspaces)](LICENSE)
+[![Release](https://github.com/IndyDevGuy/active-monitor-workspaces/actions/workflows/release-please.yml/badge.svg)](https://github.com/IndyDevGuy/active-monitor-workspaces/actions)
+[![Build](https://github.com/IndyDevGuy/active-monitor-workspaces/actions/workflows/build-zip-on-release.yml/badge.svg)](...)
+![Stars](https://img.shields.io/github/stars/IndyDevGuy/active-monitor-workspaces?style=social)
 
 A GNOME Shell extension that enables **independent workspace switching per monitor**.
 
