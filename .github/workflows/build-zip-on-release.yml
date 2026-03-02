@@ -1,0 +1,72 @@
+name: build-zip-on-release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  build-zip:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the tagged release
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install tools (jq, zip, glib for schema compilation)
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y jq zip libglib2.0-bin rsync
+
+      - name: Create extension zip (includes compiled schemas)
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ ! -f "metadata.json" ]; then
+            echo "::error::metadata.json not found in repo root."
+            exit 1
+          fi
+
+          UUID="$(jq -r '.uuid' metadata.json)"
+          if [ -z "$UUID" ] || [ "$UUID" = "null" ]; then
+            echo "::error::metadata.json .uuid missing."
+            exit 1
+          fi
+
+          TAG="${GITHUB_REF_NAME}" # e.g. v1.0.1
+          OUT="dist"
+          mkdir -p "$OUT"
+
+          WORK="$(mktemp -d)"
+          mkdir -p "$WORK/$UUID"
+
+          # Copy extension sources into a folder named after uuid.
+          # Keep LICENSE inside the zip for compliance/review.
+          rsync -a \
+            --exclude ".git" \
+            --exclude ".github" \
+            --exclude "dist" \
+            --exclude "node_modules" \
+            --exclude "*.md" \
+            ./ "$WORK/$UUID/"
+
+          # Compile schemas if present
+          if [ -d "$WORK/$UUID/schemas" ]; then
+            glib-compile-schemas "$WORK/$UUID/schemas"
+          fi
+
+          ZIP_NAME="${UUID}-${TAG}.zip"
+          (cd "$WORK" && zip -r "$GITHUB_WORKSPACE/$OUT/$ZIP_NAME" "$UUID")
+
+          echo "Built: $OUT/$ZIP_NAME"
+          ls -lah "$OUT"
+
+      - name: Upload zip to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.zip

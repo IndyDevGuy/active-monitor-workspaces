@@ -1,0 +1,79 @@
+name: bump-extension-version
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  bump:
+    if: >
+      github.event.pull_request.user.login == 'release-please[bot]' ||
+      contains(github.event.pull_request.labels.*.name, 'autorelease: pending') ||
+      startsWith(github.event.pull_request.head.ref, 'release-please--')
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Install jq
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y jq
+
+      - name: Bump metadata.json "version" (integer) if needed
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          FILE="metadata.json"
+          if [ ! -f "$FILE" ]; then
+            echo "::error::metadata.json not found in repo root."
+            exit 1
+          fi
+
+          cur="$(jq -r '.version' "$FILE")"
+          if ! [[ "$cur" =~ ^[0-9]+$ ]]; then
+            echo "::error::metadata.json .version must be an integer (GNOME extension requirement)."
+            echo "Found: $cur"
+            exit 1
+          fi
+
+          git fetch origin main:origin-main
+          main_ver="$(jq -r '.version' origin-main:"$FILE")"
+
+          if ! [[ "$main_ver" =~ ^[0-9]+$ ]]; then
+            echo "::error::main branch metadata.json .version is not an integer."
+            echo "Found: $main_ver"
+            exit 1
+          fi
+
+          # If PR already bumped beyond main, do nothing
+          if [[ "$cur" -gt "$main_ver" ]]; then
+            echo "metadata.json version already bumped in this PR: $cur (main: $main_ver). Skipping."
+            exit 0
+          fi
+
+          next=$((main_ver + 1))
+          echo "Bumping metadata.json version: $main_ver -> $next"
+
+          tmp="$(mktemp)"
+          jq ".version = $next" "$FILE" > "$tmp"
+          mv "$tmp" "$FILE"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add "$FILE"
+          git commit -m "chore: bump extension metadata version to $next" || {
+            echo "No changes to commit."
+            exit 0
+          }
+
+          git push
