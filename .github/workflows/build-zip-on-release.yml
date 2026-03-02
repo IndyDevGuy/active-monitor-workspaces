@@ -83,7 +83,7 @@ jobs:
           fi
 
           ZIP_NAME="${UUID}-${TAG}.zip"
-          (cd "$WORK" && zip -r "$GITHUB_WORKSPACE/$OUT/$ZIP_NAME" "$UUID")
+          (cd "$WORK/$UUID" && zip -r "$GITHUB_WORKSPACE/$OUT/$ZIP_NAME" .)
 
           echo "Built: $OUT/$ZIP_NAME"
           ls -lah "$OUT"
