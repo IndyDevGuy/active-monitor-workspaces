@@ -12,7 +12,7 @@
 import Adw from "gi://Adw";
 import Gtk from "gi://Gtk";
 import GObject from "gi://GObject";
-import { ExtensionPreferences } from "resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js";
+import {ExtensionPreferences} from "resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js";
 
 function asAccelStrv(accelString) {
     const s = String(accelString ?? "").trim();
@@ -41,12 +41,10 @@ function bindAccelEntryToStrvSetting(settings, keyName, entry) {
     });
 
     // If setting changes elsewhere, reflect it in the UI
-    const changedId = settings.connect(`changed::${keyName}`, () => {
+    return settings.connect(`changed::${keyName}`, () => {
         const current = accelStrvToSingle(settings.get_strv(keyName));
         if (entry.get_text() !== current) entry.set_text(current);
     });
-
-    return changedId;
 }
 
 export default class Prefs extends ExtensionPreferences {
