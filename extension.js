@@ -45,7 +45,7 @@ function findMonitorIndexForPoint(x, y) {
         }
     }
 
-    // If pointer is in a gap (rare), choose nearest monitor by distance to its rect.
+    // If pointer is in a gap (rare) choose nearest monitor by distance to its rect.
     let bestIdx = 0;
     let bestDist = Number.POSITIVE_INFINITY;
 
@@ -65,13 +65,6 @@ function findMonitorIndexForPoint(x, y) {
     return bestIdx;
 }
 
-/**
- * Active monitor resolver:
- * - pointer mode: computed from pointer coords against monitor rects (reliable)
- * - focus mode: monitor of focused normal window, fallback to pointer
- *
- * Also: fast poll loop keeps it responsive even if motion events are delayed.
- */
 class MonitorResolver {
     constructor(settings, onActiveMonitorChanged) {
         this.settings = settings;
@@ -83,7 +76,7 @@ class MonitorResolver {
         this._motionId = 0;
         this._pollId = 0;
 
-        // Motion helps, but we do not trust it alone on Wayland.
+        // Motion helps but we do not trust it alone on Wayland.
         this._motionId = global.stage.connect("motion-event", () => {
             this._updatePointerMonitor(true);
             return Clutter.EVENT_PROPAGATE;
@@ -126,12 +119,9 @@ class MonitorResolver {
         if (cur !== this._lastPointerMonitor) {
             this._lastPointerMonitor = cur;
             if (typeof this._onActiveMonitorChanged === "function") {
-                // In pointer mode, this should immediately refresh pill.
-                // In focus mode, it's still useful to keep the UI in sync.
                 this._onActiveMonitorChanged(cur);
             }
         } else if (forceNotify) {
-            // sometimes UI can lag; force a refresh on real motion
             if (typeof this._onActiveMonitorChanged === "function") {
                 this._onActiveMonitorChanged(cur);
             }
@@ -210,9 +200,9 @@ class WorkspacePanelIndicator {
         this.labeler = labeler;
         this._button = null;
 
-        this._pillBox = null;      // container with background/padding
-        this._labels = [];         // one label per monitor segment
-        this._separators = [];     // spacing labels between segments
+        this._pillBox = null;
+        this._labels = [];
+        this._separators = [];
 
         this._activeMonitorIndex = 0;
         this._activeColor = "#4ade80";
@@ -223,15 +213,14 @@ class WorkspacePanelIndicator {
 
         const btn = new PanelMenu.Button(0.0, "Per-monitor workspaces", false);
 
-        // One rounded “pill” container
         const pill = new St.BoxLayout({ vertical: false, y_align: Clutter.ActorAlign.CENTER });
 
         pill.set_style(`
-          padding: 2px 10px;
-          border-radius: 999px;
-          background-color: rgba(255,255,255,0.10);
-          font-weight: 700;
-          font-size: 12px;
+            padding: 2px 10px;
+            border-radius: 999px;
+            background-color: rgba(255,255,255,0.10);
+            font-weight: 700;
+            font-size: 12px;
         `);
 
         btn.add_child(pill);
@@ -354,14 +343,14 @@ class WorkspaceOsd {
         box.add_child(label);
 
         box.set_style(`
-      padding: 10px 14px;
-      border-radius: 14px;
-      background-color: rgba(0,0,0,0.72);
-      color: #fff;
-      font-weight: 650;
-      font-size: 14px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-    `);
+            padding: 10px 14px;
+            border-radius: 14px;
+            background-color: rgba(0,0,0,0.72);
+            color: #fff;
+            font-weight: 650;
+            font-size: 14px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+        `);
 
         Main.layoutManager.addChrome(box);
 
