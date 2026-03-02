@@ -8,5 +8,5 @@
   "original-authors": "contact@indydevguy.com",
   "url": "https://github.com/IndyDevGuy/active-monitor-workspaces",
   "settings-schema": "org.gnome.shell.extensions.active-monitor-workspaces",
-  "version": 2
+  "version": 0
 }
