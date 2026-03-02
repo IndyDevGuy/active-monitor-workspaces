@@ -1,3 +1,14 @@
+/*
+ * Active Monitor Workspaces
+ *
+ * Portions of this project were derived from
+ * gnome-shell-extension-simulate-switching-workspaces-on-active-monitor
+ * Copyright (c) 2019 Xiaoguang Wang
+ * Copyright (c) 2026 IndyDevGuy
+ *
+ * Used under the MIT License.
+ */
+
 import Adw from "gi://Adw";
 import Gtk from "gi://Gtk";
 import GObject from "gi://GObject";
