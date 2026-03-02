@@ -82,7 +82,7 @@ jobs:
             glib-compile-schemas "$WORK/$UUID/schemas"
           fi
 
-          ZIP_NAME="${UUID}-${TAG}.zip"
+          ZIP_NAME="${UUID}.zip"
           (cd "$WORK/$UUID" && zip -r "$GITHUB_WORKSPACE/$OUT/$ZIP_NAME" .)
 
           echo "Built: $OUT/$ZIP_NAME"
