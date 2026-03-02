@@ -1,0 +1,10 @@
+{
+  "uuid": "active-monitor-workspaces@indydevguy.com",
+  "name": "Active Monitor Workspaces",
+  "description": "Switches workspaces independently per monitor",
+  "shell-version": ["49"],
+  "original-authors": "contact@indydevguy.com",
+  "url": "https://github.com/IndyDevGuy/active-monitor-workspaces",
+  "settings-schema": "org.gnome.shell.extensions.active-monitor-workspaces",
+  "version": 0
+}

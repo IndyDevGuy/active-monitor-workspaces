@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="gnome-shell-extensions">
+
+    <schema
+            id="org.gnome.shell.extensions.active-monitor-workspaces"
+            path="/org/gnome/shell/extensions/active-monitor-workspaces/">
+
+        <!-- ============================= -->
+        <!-- Keybindings                   -->
+        <!-- ============================= -->
+
+        <key name="switch-to-previous-workspace-on-active-monitor" type="as">
+            <default><![CDATA[['<Control><Alt>Up']]]></default>
+            <summary>Switch to previous virtual workspace on active monitor</summary>
+            <description>Rotate windows on the active monitor to the previous virtual workspace.</description>
+        </key>
+
+        <key name="switch-to-next-workspace-on-active-monitor" type="as">
+            <default><![CDATA[['<Control><Alt>Down']]]></default>
+            <summary>Switch to next virtual workspace on active monitor</summary>
+            <description>Rotate windows on the active monitor to the next virtual workspace.</description>
+        </key>
+
+        <key name="toggle-monitor-selection-mode" type="as">
+            <default><![CDATA[['<Control><Alt>m']]]></default>
+            <summary>Toggle monitor selection mode</summary>
+            <description>Toggle between Pointer mode and Focus mode for choosing the active monitor.</description>
+        </key>
+
+        <!-- ============================= -->
+        <!-- Monitor Label Configuration   -->
+        <!-- ============================= -->
+
+        <key name="use-custom-monitor-labels" type="b">
+            <default>false</default>
+            <summary>Use custom display labels</summary>
+            <description>If enabled, monitor labels will come from "monitor-labels".</description>
+        </key>
+
+        <key name="monitor-labels" type="as">
+            <default>[]</default>
+            <summary>Monitor label mapping</summary>
+            <description>
+                Array of labels indexed by GNOME monitor index.
+                Example: ["1","2"] means monitor 0 is labeled "1" and monitor 1 is labeled "2".
+            </description>
+        </key>
+
+        <!-- ============================= -->
+        <!-- Monitor Selection Mode        -->
+        <!-- ============================= -->
+
+        <key name="monitor-selection-mode" type="s">
+            <default>'pointer'</default>
+            <summary>Active monitor selection mode</summary>
+            <description>
+                How the extension chooses which monitor the hotkeys apply to.
+                - 'pointer': monitor under mouse pointer (stable even when workspace is empty)
+                - 'focus'  : monitor of focused window (can jump if focus jumps)
+            </description>
+        </key>
+
+        <!-- ============================= -->
+        <!-- Panel Display Configuration   -->
+        <!-- ============================= -->
+
+        <key name="pill-mode" type="s">
+            <default>'all'</default>
+            <summary>Top panel indicator mode</summary>
+            <description>
+                - 'focused' : show only the active monitor state
+                - 'all'     : show compact state for all monitors
+            </description>
+        </key>
+
+    </schema>
+
+</schemalist>
