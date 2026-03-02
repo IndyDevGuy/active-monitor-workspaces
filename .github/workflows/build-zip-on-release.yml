@@ -22,6 +22,28 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y jq zip libglib2.0-bin rsync
 
+      - name: Ensure metadata.json version increments for release
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -y
+          sudo apt-get install -y jq
+
+          FILE="metadata.json"
+          cur="$(jq -r '.version' "$FILE")"
+          if ! [[ "$cur" =~ ^[0-9]+$ ]]; then
+            echo "::error::metadata.json .version must be an integer."
+            exit 1
+          fi
+
+          # If this is the first release and you want it to be 1, you can ensure minimum 1:
+          if [ "$cur" -lt 1 ]; then
+            echo "metadata.json version is $cur; setting to 1 for first release."
+            tmp="$(mktemp)"
+            jq ".version = 1" "$FILE" > "$tmp"
+            mv "$tmp" "$FILE"
+          fi
+
       - name: Create extension zip (includes compiled schemas)
         shell: bash
         run: |
