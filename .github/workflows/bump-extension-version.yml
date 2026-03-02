@@ -14,9 +14,7 @@ permissions:
 jobs:
   bump:
     # Run only on Release Please PRs (branch prefix OR label)
-    if: >
-      startsWith(github.event.pull_request.head.ref, 'release-please--') ||
-      contains(github.event.pull_request.labels.*.name, 'autorelease: pending')
+    if: startsWith(github.event.pull_request.head.ref, 'release-please--')
 
     runs-on: ubuntu-latest
 
