@@ -4,6 +4,7 @@
  * Portions of this project were derived from
  * gnome-shell-extension-simulate-switching-workspaces-on-active-monitor
  * Copyright (c) 2019 Xiaoguang Wang
+ * Copyright (c) 2026 IndyDevGuy
  *
  * Used under the MIT License.
  */
@@ -76,13 +77,11 @@ class MonitorResolver {
         this._motionId = 0;
         this._pollId = 0;
 
-        // Motion helps but we do not trust it alone on Wayland.
         this._motionId = global.stage.connect("motion-event", () => {
             this._updatePointerMonitor(true);
             return Clutter.EVENT_PROPAGATE;
         });
 
-        // Poll to avoid “delayed / missed motion updates”
         this._pollId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 60, () => {
             this._updatePointerMonitor(false);
             return GLib.SOURCE_CONTINUE;

@@ -1,18 +1,18 @@
 name: bump-extension-version
 
 on:
-  pull_request_target:
-    types: [opened, synchronize, reopened]
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
 
 permissions:
   contents: write
 
 jobs:
   bump:
+    # Run only on Release Please PRs
     if: >
-      github.event.pull_request.user.login == 'release-please[bot]' ||
-      contains(github.event.pull_request.labels.*.name, 'autorelease: pending') ||
-      startsWith(github.event.pull_request.head.ref, 'release-please--')
+      startsWith(github.event.pull_request.head.ref, 'release-please--') ||
+      contains(github.event.pull_request.labels.*.name, 'autorelease: pending')
 
     runs-on: ubuntu-latest
 
@@ -40,14 +40,13 @@ jobs:
 
           cur="$(jq -r '.version' "$FILE")"
           if ! [[ "$cur" =~ ^[0-9]+$ ]]; then
-            echo "::error::metadata.json .version must be an integer (GNOME extension requirement)."
+            echo "::error::metadata.json .version must be an integer."
             echo "Found: $cur"
             exit 1
           fi
 
           git fetch origin main:origin-main
           main_ver="$(jq -r '.version' origin-main:"$FILE")"
-
           if ! [[ "$main_ver" =~ ^[0-9]+$ ]]; then
             echo "::error::main branch metadata.json .version is not an integer."
             echo "Found: $main_ver"
@@ -56,7 +55,7 @@ jobs:
 
           # If PR already bumped beyond main, do nothing
           if [[ "$cur" -gt "$main_ver" ]]; then
-            echo "metadata.json version already bumped in this PR: $cur (main: $main_ver). Skipping."
+            echo "Already bumped in this PR: $cur (main: $main_ver). Skipping."
             exit 0
           fi
 
