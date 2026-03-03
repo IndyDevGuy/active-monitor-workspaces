@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/IndyDevGuy/active-monitor-workspaces/compare/v1.4.0...v1.4.1) (2026-03-03)
+
+
+### Bug Fixes
+
+* fix:  ([c465b09](https://github.com/IndyDevGuy/active-monitor-workspaces/commit/c465b09b39439e797f24990ea89f3af509407823))
+
 ## [1.4.0](https://github.com/IndyDevGuy/active-monitor-workspaces/compare/v1.3.0...v1.4.0) (2026-03-02)
 
 
@@ -18,4 +25,3 @@
 * trigger release ([6dfe1d8](https://github.com/IndyDevGuy/active-monitor-workspaces/commit/6dfe1d8ea72922bc48122c58a6f31a97664bbac9))
 * trigger release ([4d4400f](https://github.com/IndyDevGuy/active-monitor-workspaces/commit/4d4400f3303fc2e3d31c98cfdbe3d3215f95a10f))
 * trigger release ([598de6b](https://github.com/IndyDevGuy/active-monitor-workspaces/commit/598de6b9400bc78650b3ae1c90cd5b3e69b912d7))
-
