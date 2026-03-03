@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.2](https://github.com/IndyDevGuy/active-monitor-workspaces/compare/v1.4.1...v1.4.2) (2026-03-03)
+
+
+### Bug Fixes
+
+* fix:  ([bef4f0b](https://github.com/IndyDevGuy/active-monitor-workspaces/commit/bef4f0b718df1c6d0578ac02f04120e447c0bf72))
+
 ## [1.4.1](https://github.com/IndyDevGuy/active-monitor-workspaces/compare/v1.4.0...v1.4.1) (2026-03-03)
 
 
