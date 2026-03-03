@@ -60,6 +60,30 @@
             </description>
         </key>
 
+        <key name="use-system-accent-color" type="b">
+            <default>true</default>
+            <summary>Use system accent color</summary>
+            <description>When enabled, highlight colors use the GNOME accent color.</description>
+        </key>
+
+        <key name="overlay-show-on-all-displays" type="b">
+            <default>false</default>
+            <summary>Show overlay on all displays</summary>
+            <description>
+                If true, the workspace thumbnail overlay is shown on every monitor (each monitor shows only its own row).
+                If false, the overlay is shown only on the active monitor.
+            </description>
+        </key>
+        <key name="overlay-show-all-monitors" type="b">
+            <default>false</default>
+            <summary>Show all monitor rows in overlay</summary>
+            <description>
+                If enabled (and overlay is only shown on the active display), the overlay contains rows for all monitors.
+                If disabled, it only shows the active monitor row.
+                When showing on all displays, each display always shows only its own row.
+            </description>
+        </key>
+
         <!-- ============================= -->
         <!-- Panel Display Configuration   -->
         <!-- ============================= -->

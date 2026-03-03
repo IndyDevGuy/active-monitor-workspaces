@@ -12,6 +12,8 @@ A GNOME Shell extension that enables **independent workspace switching per monit
 
 GNOME normally treats workspaces globally across displays. This extension introduces per-monitor workspace control, allowing you to switch workspaces on one display without affecting the others — while keeping GNOME’s native workflow intact.
 
+![Workspace Overlay](https://github.com/IndyDevGuy/active-monitor-workspaces/blob/main/docs/images/all-monitors-view.png?raw=true)
+
 ---
 
 ## ✨ Features

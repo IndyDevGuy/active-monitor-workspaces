@@ -19,4 +19,3 @@
 * trigger release ([4d4400f](https://github.com/IndyDevGuy/active-monitor-workspaces/commit/4d4400f3303fc2e3d31c98cfdbe3d3215f95a10f))
 * trigger release ([598de6b](https://github.com/IndyDevGuy/active-monitor-workspaces/commit/598de6b9400bc78650b3ae1c90cd5b3e69b912d7))
 
-## Changelog

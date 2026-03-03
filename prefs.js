@@ -79,6 +79,50 @@ export default class Prefs extends ExtensionPreferences {
             GObject.BindingFlags.DEFAULT
         );
 
+        const useAccentRow = new Adw.SwitchRow({
+            title: "Use system accent color",
+            subtitle: "Use GNOME’s Accent Color for highlights instead of fixed green.",
+        });
+        general.add(useAccentRow);
+        settings.bind(
+            "use-system-accent-color",
+            useAccentRow,
+            "active",
+            GObject.BindingFlags.DEFAULT
+        );
+
+        const overlayAllRow = new Adw.SwitchRow({
+            title: "Show overlay on all displays",
+            subtitle: "If off, the overlay appears only on the active display.",
+        });
+        general.add(overlayAllRow);
+
+        settings.bind(
+            "overlay-show-on-all-displays",
+            overlayAllRow,
+            "active",
+            GObject.BindingFlags.DEFAULT
+        );
+
+        const overlayAllMonitorsRow = new Adw.SwitchRow({
+            title: "Overlay shows all monitors",
+            subtitle: "When overlay is only on the active display, show rows for all monitors instead of only the active monitor.",
+        });
+        general.add(overlayAllMonitorsRow);
+        settings.bind(
+            "overlay-show-all-monitors",
+            overlayAllMonitorsRow,
+            "active",
+            GObject.BindingFlags.DEFAULT
+        );
+
+        const syncOverlaySensitivity = () => {
+            const onAll = settings.get_boolean("overlay-show-on-all-displays");
+            overlayAllMonitorsRow.set_sensitive(!onAll);
+        };
+        syncOverlaySensitivity();
+        disconnectIds.push(settings.connect("changed::overlay-show-on-all-displays", syncOverlaySensitivity));
+
         const selModeRow = new Adw.ComboRow({
             title: "Active monitor selection",
             subtitle:
