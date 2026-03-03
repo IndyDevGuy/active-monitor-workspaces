@@ -10,9 +10,9 @@
 
 A GNOME Shell extension that enables **independent workspace switching per monitor**.
 
-GNOME normally treats workspaces globally across displays. This extension introduces per-monitor workspace control, allowing you to switch workspaces on one display without affecting the others — while keeping GNOME’s native workflow intact.
+GNOME’s default workflow synchronizes workspaces across displays. This extension introduces per-monitor workspace control, allowing you to switch workspaces on one display without affecting the others — while keeping GNOME’s native workflow intact.
 
-![Workspace Overlay](https://github.com/IndyDevGuy/active-monitor-workspaces/blob/main/docs/images/all-monitors-view.png?raw=true)
+![Workspace Overlay](https://github.com/IndyDevGuy/active-monitor-workspaces/blob/main/docs/images/demo.gif?raw=true)
 
 ---
 
@@ -26,6 +26,13 @@ GNOME normally treats workspaces globally across displays. This extension introd
 - Lightweight and performance-friendly
 - Proper enable/disable lifecycle (no lingering signals or leaks)
 
+#### Design Principles
+
+- No monkey-patching of core GNOME behavior
+- No persistent global overrides
+- Clean enable/disable lifecycle
+- No lingering signals or leaked actors
+
 ---
 
 ## 🖥 How It Works
@@ -37,6 +44,7 @@ When you switch workspaces:
 - Only windows on the active monitor move
 - Other monitors remain unchanged
 - The panel indicator updates to reflect each display’s state
+- Custom workspace overlay shows windows per workspace
 
 ### Monitor Selection Modes
 
@@ -65,7 +73,7 @@ Optional compact mode shows only the focused monitor.
 
 ## ⌨ Keyboard Shortcuts
 
-Configurable via extensions settings:
+#### Configurable via extensions settings:
 
 - Switch to next workspace on active monitor
 - Switch to previous workspace on active monitor
@@ -73,11 +81,6 @@ Configurable via extensions settings:
 
 ---
 
-## 🎬 Demo
-
-> Add a GIF here once you record one.
-
----
 
 ## 📦 Installation
 ### Official (Recommended)
@@ -96,7 +99,7 @@ GNOME Shell 49+ (Not tested with older versions)
 
 Static workspaces enabled
 
-Workspaces span displays enabled
+“Workspaces span displays” enabled (required for per-monitor virtualization layer)
 
 The extension adapts automatically to your workspace configuration.
 
@@ -117,7 +120,7 @@ This extension introduces display-aware workspace switching without breaking GNO
 
 ## 🗺 Roadmap
 
-Planned enhancements:
+Future direction:
 
 - Indicator styling customization
 - Animation tuning options
@@ -172,14 +175,3 @@ While the implementation has since been heavily refactored and expanded, the ori
 
 Thank you to the original author for contributing to the GNOME ecosystem.
 
----
-
-### What Changed (and Why)
-
-- Cleaned up hierarchy and spacing
-- Made section structure consistent
-- Tightened phrasing for professionalism
-- Improved bullet formatting
-- Added stronger demo guidance
-- Made roadmap read like future vision instead of a list
-- Improved attribution tone (confident, not apologetic)
